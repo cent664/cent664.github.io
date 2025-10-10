@@ -4,65 +4,195 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agnibh Dasgupta — AI Researcher</title>
-  <meta name="description" content="AI researcher focusing on invariant representations, robust watermarking, and LLM/VLM robustness." />
+  <meta name="description" content="AI researcher focusing on representation learning, robust watermarking, and LLM robustness." />
   <style>
-    :root{
-      --bg: #0b0f14; --fg:#e6eef8; --muted:#a8b3c7; --card:#121922; --accent:#84aef0; --accent-2:#8be9c4; --border:#1e2835;
+    :root {
+      --bg: #0b0f14;
+      --fg: #e6eef8;
+      --muted: #a8b3c7;
+      --card: #121922;
+      --accent: #84aef0;
+      --accent-2: #8be9c4;
+      --border: #1e2835;
       --max: 1100px;
     }
-    *{box-sizing:border-box}
-    html, body{margin:0; padding:0; background:var(--bg); color:var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";}
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:var(--max); margin:0 auto; padding:24px}
-    header{display:flex; gap:18px; align-items:center; justify-content:space-between; padding:18px 0; border-bottom:1px solid var(--border)}
-    nav a{margin-left:18px; font-weight:600}
-    .hero{display:grid; grid-template-columns: 1.3fr 1fr; gap:24px; padding:32px 0}
-    .hero h1{font-size: clamp(28px, 4vw, 44px); line-height:1.1; margin:8px 0}
-    .hero p{color:var(--muted); font-size: clamp(16px, 2vw, 18px)}
-    .tag{display:inline-block; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:13px}
-    .cards{display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:16px}
-    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px}
-    .card h3{margin:0 0 6px 0; font-size:18px}
-    .card p{margin:0; color:var(--muted); font-size:15px}
-    .section{padding:28px 0; border-top:1px solid var(--border)}
-    h2{font-size:22px; margin:0 0 14px 0}
-    .pubs li{margin:14px 0;}
-    .pubs .venue{color:var(--muted); font-style:italic}
-    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:24px}
-    footer{padding:28px 0; color:var(--muted); border-top:1px solid var(--border); margin-top:28px}
-    .btn{display:inline-block; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0a0e14; font-weight:700; padding:10px 14px; border-radius:12px}
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 13px; color:var(--muted)}
-    ul{padding-left:20px}
-    @media (max-width: 860px){ .hero{grid-template-columns:1fr} header{flex-wrap:wrap} }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 24px; }
+
+    header {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a { margin-left: 18px; font-weight: 600; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+      padding: 32px 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      margin: 8px 0;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 18px);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .card h3 { margin: 0 0 6px 0; font-size: 18px; }
+
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .section {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    h2 { font-size: 22px; margin: 0 0 14px 0; }
+
+    .pubs li { margin: 14px 0; }
+    .pubs .venue { color: var(--muted); font-style: italic; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    footer {
+      padding: 28px 0;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0a0e14;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 12px;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    ul { padding-left: 20px; }
+
+    /* === Icon styling for CV & Contact section === */
+    #cv-contact p {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    #cv-contact img {
+      filter: invert(1);
+      transition: filter 0.25s ease, transform 0.2s ease;
+      width: 18px;
+      height: 18px;
+    }
+
+    #cv-contact img:hover {
+      filter: invert(69%) sepia(49%) saturate(447%) hue-rotate(192deg)
+              brightness(95%) contrast(89%);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      header { flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div style="display:flex; align-items:center; gap:14px">
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));filter:brightness(1.2)"></div>
+      <div style="display:flex; align-items:center; gap:18px">
+        <!-- Larger profile picture -->
+        <img src="20230922_Agnibh Dasgupta_02.JPG"
+             alt="Agnibh Dasgupta"
+             style="
+               width:180px;
+               height:220px;
+               border-radius:12px;
+               object-fit:cover;
+               border:2px solid var(--border);
+               background:var(--card);
+               box-shadow:0 0 6px rgba(0,0,0,0.4);
+             ">
+        
         <div>
-          <div style="font-weight:800; letter-spacing:0.2px">Agnibh Dasgupta</div>
-          <div class="mono">AI Researcher · PhD (Information Science & Technology)</div>
+          <div style="font-weight:800; letter-spacing:0.2px; font-size:20px;">Agnibh Dasgupta</div>
+          <div class="mono" style="font-size:14px;">AI Researcher · PhD (Artificial Intelligence)</div>
         </div>
       </div>
+
       <nav>
         <a href="#about">About</a>
-        <a href="#research">Research</a>
+        <a href="#selected-research">Selected Research</a>
         <a href="#publications">Publications</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#cv-contact">Contact</a>
       </nav>
     </header>
 
+
     <section class="hero">
       <div>
-        <span class="tag">Invariant Representations · Watermarking · LLM/VLM Robustness</span>
-        <h1>Building robust, invariant representations for vision and language models</h1>
+        <span class="tag">Representation Learning · Watermarking · LLM Robustness</span>
+        <h1>Building robust, invariant representations for AI models</h1>
         <p>
-          I study how models encode meaning that remains stable under perturbations—data augmentations for images and paraphrases for language. My work spans
-          robust image watermarking (cross-attention + invariant domain learning), auto-augmentation, and identifying invariant latent features in LLMs/VLMs for attribution and forensics.
+          I study how models encode semantic meaning that remains stable under perturbations. My work spans robust representation learning for
+          image watermarking, auto-augmentation, and identifying invariant latent features in LLMs for attribution and forensics.
         </p>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn" href="#publications">View Publications</a>
@@ -73,26 +203,27 @@
       <div class="card">
         <h3>At a glance</h3>
         <ul>
-          <li>PhD candidate (UNO); focus: invariant feature learning</li>
-          <li>Research areas: robust watermarking, auto-augmenters, LLM attribution</li>
-          <li>Interests: ViT-based vision, self-supervision, multimodal robustness</li>
+          <li>PhD candidate at University of Nebraska - Omaha. Focus: Artificial Intelligence</li>
+          <li>Research areas: representation learning, robust image watermarking, LLM watermarking and attribution</li>
+          <li>Other Interests: Reinforcement learning, multimodalilty in deep learning </li>
         </ul>
         <div style="margin-top:12px">
-          <div class="mono">Actively seeking 2026 research scientist roles (US & abroad)</div>
+          <div class="mono">Actively seeking 2026 research scientist roles</div>
         </div>
       </div>
     </section>
+
 
     <section id="about" class="section">
       <h2>About</h2>
       <div class="grid-2">
         <div>
           <p>
-            I'm a doctoral researcher in Information Science &amp; Technology at the University of Nebraska Omaha. My dissertation centers on <strong>Invariant Domain Learning</strong> and its applications to <strong>robust image watermarking</strong> and <strong>LLM/VLM robustness</strong>.
+            I'm a doctoral researcher in Information Science &amp; Technology at the University of Nebraska Omaha. My dissertation centers on <strong>invariant representation learning</strong> and its applications to <strong>robust image watermarking</strong> and <strong>LLM robustness</strong>.
           </p>
           <p>
             Broadly, I design systems that remain stable under content-preserving transformations: geometric/photometric augmentations for images and
-            lexical/structural paraphrases for text. I care about <em>what</em> a model knows versus <em>how</em> it encodes it.
+            lexical/structural paraphrases for text. I care about <em>what</em> an AI model knows versus <em>how</em> it encodes it.
           </p>
         </div>
         <div class="card">
@@ -100,101 +231,132 @@
           <ul>
             <li>Invariant representations &amp; stability under augmentations</li>
             <li>Robust watermarking (vision &amp; language)</li>
-            <li>Adversarial/auto-augmentation</li>
-            <li>LLM/VLM attribution &amp; forensics</li>
-            <li>Self-supervised learning (contrastive/InfoNCE)</li>
+            <li>LLM attribution &amp; forensics</li>
+            <li>Self-supervised learning</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="research" class="section">
-      <h2>Selected research</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Robust Image Watermarking via Cross-Attention &amp; Invariant Domain Learning</h3>
-          <p class="venue">CSCI 2023</p>
-          <p>Watermark embedding/extraction resilient to geometric &amp; photometric attacks using ViT features aligned to an invariant subspace.</p>
-          <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="#" aria-label="code">Code</a></p>
+
+    <section id="selected-research" class="section">
+      <h2>Selected Research</h2>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <div style="width:100%; height:200px; background:#1e2835; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#555; font-size:14px;">[image]</div>
+          <div style="width:100%;">
+            <h3>Watermarking Language Models through Language Models</h3>
+            <p class="venue">IEEE Transactions on Artificial Intelligence (in press, 2025)</p>
+            <p>Prompt-based LLM watermarking framework that embeds detectable signals in model responses without modifying weights or data. Evaluated watermark generation and detection using instruction-tuned LLMs.</p>
+            <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/LLMWM" target="_blank" rel="noopener">GitHub</a></p>
+          </div>
         </article>
-        <article class="card">
-          <h3>Auto-Augmenter for Adversarial Robustness in Representation Learning</h3>
-          <p class="venue">In preparation</p>
-          <p>Learned augmentation policy that stresses encoders; evaluates stability via classification and feature-similarity objectives.</p>
-          <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="#" aria-label="code">Code</a></p>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <div style="width:100%; height:200px; background:#1e2835; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#555; font-size:14px;">[image]</div>
+          <div style="width:100%;">
+            <h3>Robust Image Watermarking via Cross-Attention &amp; Invariant Domain Learning</h3>
+            <p class="venue">CSCI 2023</p>
+            <p>Watermark embedding and extraction method resilient to geometric and photometric attacks. Utilizes ViT-based cross-attention to align invariant domain features for robust watermark decoding.</p>
+            <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/SSRIW" target="_blank" rel="noopener">GitHub</a></p>
+          </div>
         </article>
-        <article class="card">
-          <h3>Invariant Latent Features for LLM Attribution (LLMID)</h3>
-          <p class="venue">Preprint</p>
-          <p>Layer-wise analysis to identify paraphrase-stable features in LLMs; supports semantic grouping &amp; model attribution.</p>
-          <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="#" aria-label="code">Code</a></p>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <div style="width:100%; height:200px; background:#1e2835; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#555; font-size:14px;">[image]</div>
+          <div style="width:100%;">
+            <h3>LLMID: Invariant Latent Features for LLM Attribution</h3>
+            <p class="venue">Preprint</p>
+            <p>Layer-wise analysis framework for identifying paraphrase-stable latent representations in LLMs. Supports semantic clustering and model attribution tasks.</p>
+            <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/LLMID" target="_blank" rel="noopener">GitHub</a></p>
+          </div>
         </article>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <div style="width:100%; height:200px; background:#1e2835; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#555; font-size:14px;">[image]</div>
+          <div style="width:100%;">
+            <h3>AutoAugmenter: Adversarial Robustness in Representation Learning</h3>
+            <p class="venue">In preparation</p>
+            <p>Differentiable augmentation framework that learns to adversarially perturb images to challenge encoders. Evaluates representation stability via classification and similarity-based objectives.</p>
+            <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/Autoaugment" target="_blank" rel="noopener">GitHub</a></p>
+          </div>
+        </article>
+
       </div>
     </section>
+
 
     <section id="publications" class="section">
-      <h2>Publications &amp; preprints</h2>
+      <h2>Publications</h2>
       <ul class="pubs">
+
         <li>
-          <strong>Leveraging Artificial Intelligence (AI) to Enhance K-12 Computer Science (CS)</strong> — <span class="venue">FIE 2024</span><br/>
-          <span class="mono">Authors: A. Dasgupta, et al.</span>
+          <strong>Watermarking Language Models through Language Models</strong> — <span class="venue">IEEE Transactions on Artificial Intelligence, 2025</span><br/>
+          <span class="mono">Authors: A. Dasgupta, A. Tanvir, X. Zhong</span><br/>
+          <a href="#" target="_blank" rel="noopener">In press</a>
         </li>
+
+        <li>
+          <strong>Utilization of SAM2 Model for the Segmentation of Retinal Vascular Leakage on Ultra-wide-field Fluorescein Angiography in Non-infectious Retinal Vasculitis</strong> — <span class="venue">American Academy of Ophthalmology (AAO), 2025</span><br/>
+          <span class="mono">Authors: X. Xing, I. Karaca, A. Akhavanrezayat, S. Badrloo, Q. D. Nguyen, M. Subramaniam</span><br/>
+          <a href="https://arxiv.org/html/2509.10554v3" target="_blank" rel="noopener">arXiv</a>
+        </li>
+
+        <li>
+          <strong>Enhanced Image Watermarking Through Cross-Attention and Noise-Invariant Domain Learning</strong> — <span class="venue">Imaging Science: Computer Vision, Image and Signal Processing Pattern Recognition, 2024</span><br/>
+          <span class="mono">Authors: A. Dasgupta, X. Zhong</span><br/>
+          <a href="https://ieeexplore.ieee.org/abstract/document/11052895" target="_blank" rel="noopener">IEEE Xplore</a>
+        </li>
+
+        <li>
+          <strong>Leveraging Artificial Intelligence (AI) to Enhance CS Instruction</strong> — <span class="venue">Frontiers in Education (FIE), 2024</span><br/>
+          <span class="mono">Authors: H. Yoon, X. Zhong, A. Dasgupta, G. Nugent, G. Trainin</span><br/>
+          <a href="https://ieeexplore.ieee.org/document/10893354" target="_blank" rel="noopener">IEEE Xplore</a>
+        </li>
+
         <li>
           <strong>Robust Image Watermarking based on Cross-Attention and Invariant Domain Learning</strong> — <span class="venue">CSCI 2023</span><br/>
-          <span class="mono">Authors: A. Dasgupta, et al.</span>
+          <span class="mono">Authors: A. Dasgupta, X. Zhong</span><br/>
+          <a href="https://ieeexplore.ieee.org/document/10590390" target="_blank" rel="noopener">IEEE Xplore</a>
         </li>
+
         <li>
-          <strong>Watermarking Language Models through Language Models</strong> — <span class="venue">IEEE TAI (under review/accepted — update)</span><br/>
-          <span class="mono">Authors: A. Dasgupta, et al.</span>
+          <strong>Perspective Transformation Layer</strong> — <span class="venue">CSCI 2022</span><br/>
+          <span class="mono">Authors: N. Khatri; A. Dasgupta; Y. Shen; X Zhong; F. Y. Shih</span><br/>
+          <a href="https://ieeexplore.ieee.org/document/10216469" target="_blank" rel="noopener">IEEE Xplore</a>
         </li>
-        <li>
-          <strong>Other works</strong> — SAM2 retinal leakage segmentation (AAO), invariant-domain watermarking extensions, and more.
-        </li>
+
       </ul>
-      <p class="mono">Tip: replace placeholders above with actual author lists, links (PDF/ArXiv/DOI), and venues.</p>
+
+      <p class="mono">Links to papers in press will be updated as they become available.</p>
     </section>
 
-    <section id="projects" class="section">
-      <h2>Open-source projects</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Watermarking-ID</h3>
-          <p>End-to-end ViT watermarking pipeline with invariant-domain features and key-based extraction. Robust to common augments.</p>
-          <p><a href="https://github.com/cent664" target="_blank" rel="noopener">GitHub</a></p>
-        </article>
-        <article class="card">
-          <h3>AutoAugmenter</h3>
-          <p>Differentiable augmenter with photometric &amp; geometric modules; adversarially trains encoders for stability.</p>
-          <p><a href="https://github.com/cent664" target="_blank" rel="noopener">GitHub</a></p>
-        </article>
-        <article class="card">
-          <h3>LLMID</h3>
-          <p>Layer-wise invariance analysis for LLM paraphrase robustness and model attribution.</p>
-          <p><a href="https://github.com/cent664" target="_blank" rel="noopener">GitHub</a></p>
-        </article>
+
+    <section id="cv-contact" class="section">
+      <h2>CV &amp; Contact</h2>
+      <div style="display:flex; flex-direction:column; gap:6px; font-size:15px; line-height:1.4;">
+        <p><a href="Agnibh_Dasgupta_CV.pdf" target="_blank" rel="noopener"><strong>View CV (PDF)</strong></a></p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/maildotru.svg"
+               alt="Email" width="18" height="18" style="filter:invert(1);">
+          <a href="mailto:adg002@gmail.com">adg002@gmail.com</a>
+        </p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt="GitHub" width="18" height="18" style="filter:invert(1);">
+          <a href="https://github.com/cent664" target="_blank" rel="noopener">cent664</a>
+        </p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="LinkedIn" width="18" height="18" style="filter:invert(1);">
+          <a href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener">linkedin.com/in/cent664</a>
+        </p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt="Google Scholar" width="18" height="18" style="filter:invert(1);">
+          <a href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar Profile</a>
+        </p>
       </div>
     </section>
 
-    <section id="cv" class="section">
-      <h2>CV</h2>
-      <p>Add a <span class="mono">/cv/Agnibh_Dasgupta_CV.pdf</span> and link it here.</p>
-    </section>
-
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <div class="grid-2">
-        <div>
-          <p>Email: <a href="mailto:adg002@gmail.com">agnibh@example.com</a></p>
-          <p>GitHub: <a href="https://github.com/cent664" target="_blank" rel="noopener">cent664</a></p>
-          <p>LinkedIn: <a href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener">Add link</a></p>
-          <p>Google Scholar: <a href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&hl=en" target="_blank" rel="noopener">Add link</a></p>
-        </div>
-        <div class="card">
-          <h3>One‑line bio</h3>
-          <p class="mono">Invariant-domain learning for robust watermarking and LLM/VLM attribution.</p>
-        </div>
-      </div>
-    </section>
 
     <footer>
       <div class="mono">© <span id="y"></span> Agnibh Dasgupta. Built with minimal HTML/CSS.
