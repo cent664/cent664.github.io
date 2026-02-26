@@ -40,11 +40,10 @@
 
     <section class="hero">
       <div>
-        <span class="tag">Representation Learning · Multimodality · Watermarking</span>
+        <span class="tag">Representation Learning · Watermarking · Multimodality</span>
         <h1>Building robust, invariant representations for AI models</h1>
         <p>
-          I study how models encode semantic meaning that remains stable under perturbations. My work spans robust representation learning for
-          image watermarking, auto-augmentation, and identifying invariant latent features in LLMs for attribution and forensics.
+          I study how models encode semantic meaning that remains stable under perturbations. My work opertionalizes these representations for watermarking,   , and identifying invariant latent features in LLMs for attribution and forensics.
         </p>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn" href="#publications">View Publications</a>
@@ -109,14 +108,14 @@
         <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
           <img src="img/TIACam.png" alt="Invariant Feature Learning with Auto-Augmentation for Watermarking" style="width:100%; border-radius:12px; border:1px solid var(--border);">
           <div style="width:100%;">
-            <h3>Invariant Feature Learning with Auto-Augmentation for Watermarking</h3>
-            <p class="venue">Under review</p>
-            <p>Differentiable augmentation framework that learns to adversarially perturb images to challenge encoders. Evaluates representation stability via classification and similarity-based objectives.</p>
+            <h3>TIACam: Text-Anchored Invariant Feature Learning with Auto-Augmentation for Camera-Robust Zero-Watermarking</h3>
+            <p class="venue">Conference on Computer Vision and Pattern Recognition (in press)</p>
+            <p>TIACam is a text-anchored invariant feature learning framework for camera-robust zero-watermarking that embeds binary messages in a distortion-invariant feature space rather than modifying pixels. By combining a learnable auto-augmentor with cross-modal adversarial training on a frozen CLIP backbone, the model preserves semantic consistency under realistic camera distortions and achieves state-of-the-art watermark recovery under both synthetic and real capture conditions.</p>
             <!-- <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/Autoaugment" target="_blank" rel="noopener">Code</a></p> -->
           </div>
         </article>
 
-        <!-- <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
           <img src="img/LLMWM.JPG" alt="Watermarking Language Models through Language Models" style="width:100%; border-radius:12px; border:1px solid var(--border);">
           <div style="width:100%;">
             <h3>Watermarking Language Models through Language Models</h3>
@@ -124,7 +123,7 @@
             <p>Prompt-based LLM watermarking framework that embeds detectable signals in model responses without modifying weights or data. Evaluated watermark generation and detection using instruction-tuned LLMs. The figure above is an overview of our prompting strategy.</p>
             <p><a href="https://ieeexplore.ieee.org/document/11146861" aria-label="paper pdf">Paper</a> · <a href="https://github.com/cent664/LLMWM" target="_blank" rel="noopener">Code</a></p>
           </div>
-        </article> -->
+        </article>
 
         <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
           <img src="img/SSRIW.png" alt="Robust Image Watermarking via Cross-Attention & Invariant Domain Learning" style="width:100%; border-radius:12px; border:1px solid var(--border);">
