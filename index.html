@@ -67,7 +67,6 @@
           <li>Other Interests:
             <ul>
               <li>Explainability</li>
-              <li>LLM forensics</li>
             </ul>
           </li>
         </ul>
@@ -78,11 +77,10 @@
       <h2>About</h2>
       <div>
         <p>
-          I'm a doctoral researcher in Information Science &amp; Technology at the University of Nebraska Omaha. My research centers on
-          <strong>robust representation learning</strong>. I study how models encode semantic structure that remains stable under perturbations.
+          I'm an AI researcher with a PhD in Computing &amp; Information Science from the University of Nebraska Omaha. My research centers on <strong>robust representation learning</strong>. I study how models encode semantic structure that remains stable under perturbations.
         </p>
         <p>
-          My work operationalizes these representations for <strong>robust watermarking</strong> and for <strong>LLM provenance and forensics.</strong>
+          My work operationalizes these representations for <strong>robust watermarking</strong> and <strong>LLM provenance</strong>
         </p>
       </div>
     </section>
@@ -91,6 +89,17 @@
     <section id="selected-research" class="section">
       <h2>Selected Research</h2>
       <div style="display:flex; flex-direction:column; gap:32px;">
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <img src="img/LLMID.png" alt="Invariant Representation Learning in LLMs for Model Attribution" style="width:100%; border-radius:12px; border:1px solid var(--border);">
+          <div style="width:100%;">
+            <h3>Invariant Features in Language Models: Geometric Characterization and Model Attribution</h3>
+            <p class="venue">Under review</p>
+            <p>We propose a local geometric framework for identifying invariant semantic subspaces in transformer-based language models. Using a contrastive generalized eigenvalue decomposition over semantic-preserving and semantic-changing perturbations, we localize layers where semantic meaning concentrates and validate these representations causally through hidden-state interventions.
+              Invariant representations are further applied to zero-shot model attribution, achieving over 92% accuracy across base, fine-tuned, and distilled variants of 9 open-source LLMs spanning diverse architectures and parameter scales.</p>
+            <!-- <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/LLMID" target="_blank" rel="noopener">Code</a></p> -->
+          </div>
+        </article>
 
         <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
           <img src="img/TIACam.png" alt="Invariant Feature Learning with Auto-Augmentation for Watermarking" style="width:100%; border-radius:12px; border:1px solid var(--border);">
@@ -121,16 +130,6 @@
             <p><a href="https://ieeexplore.ieee.org/document/10590390" aria-label="paper pdf">Paper</a> · <a href="https://github.com/cent664/SSRIW" target="_blank" rel="noopener">Code</a></p>
           </div>
         </article>
-
-        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
-          <img src="img/LLMID.png" alt="Invariant Representation Learning in LLMs for Model Attribution" style="width:100%; border-radius:12px; border:1px solid var(--border);">
-          <div style="width:100%;">
-            <h3>Invariant Representation Learning in LLMs for Model Attribution</h3>
-            <p class="venue">Under review</p>
-            <p>Layer-wise analysis framework for identifying paraphrase-stable latent representations in LLMs. Supports semantic clustering and model attribution tasks.</p>
-            <!-- <p><a href="#" aria-label="paper pdf">PDF</a> · <a href="https://github.com/cent664/LLMID" target="_blank" rel="noopener">Code</a></p> -->
-          </div>
-      </article>
 
       </div>
     </section>
