@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Robust Image Watermarking — Agnibh Dasgupta</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="header-name" href="../index.html">Agnibh Dasgupta</a>
+      <nav aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../selected-research.html" aria-current="page">Selected Research</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section paper-detail">
+      <a class="back-link" href="../selected-research.html">← Back to Selected Research</a>
+      <h1 class="paper-detail-title">Robust Image Watermarking via Cross-Attention &amp; Invariant Domain Learning</h1>
+      <p class="paper-meta"><span class="paper-meta-label">Authors:</span> Agnibh Dasgupta, Xin Zhong</p>
+      <p class="paper-meta"><span class="paper-meta-label">Venue:</span> International Conference on Computational Science and Computational Intelligence (CSCI)</p>
+      <p class="paper-meta"><span class="paper-meta-label">Year:</span> 2023</p>
+
+      <figure class="paper-detail-figure">
+        <img src="../img/SSRIW.png" alt="Robust Image Watermarking via Cross-Attention and Invariant Domain Learning">
+      </figure>
+
+      <p class="paper-detail-actions">
+        <a class="btn" href="https://ieeexplore.ieee.org/document/10590390" target="_blank" rel="noopener">View Paper</a>
+        <a class="btn btn-outline" href="https://github.com/cent664/SSRIW" target="_blank" rel="noopener">Code</a>
+      </p>
+
+      <h2 class="paper-detail-heading">Abstract</h2>
+      <div class="paper-detail-abstract">
+        <p>Image watermarking involves embedding and extracting watermarks within a cover image but lacks generalization and robustness. Deep learning approaches have emerged to remedy these shortcomings, with current methods predominantly employing convolution and concatenation for watermark embedding, while also integrating conceivable augmentation in the training process. This paper explores a robust image watermarking methodology by harnessing cross-attention and invariant domain learning, marking two novel, significant advancements. First, we design a watermark embedding technique utilizing a multi-head cross-attention mechanism, enabling information exchange between the cover image and watermark to identify semantically suitable embedding locations. Second, we advocate for learning an invariant domain representation that encapsulates both semantic and noise-invariant information concerning the watermark, shedding light on promising avenues for enhancing image watermarking techniques.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt=""></a>
+        <a class="footer-btn" href="https://github.com/cent664" target="_blank" rel="noopener" aria-label="GitHub"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt=""></a>
+        <a class="footer-btn" href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt=""></a>
+        <a class="footer-btn" href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt=""></a>
+      </div>
+      <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>

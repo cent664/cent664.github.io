@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TIACam — Agnibh Dasgupta</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="header-name" href="../index.html">Agnibh Dasgupta</a>
+      <nav aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../selected-research.html" aria-current="page">Selected Research</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section paper-detail">
+      <a class="back-link" href="../selected-research.html">← Back to Selected Research</a>
+      <h1 class="paper-detail-title">TIACam: Text-Anchored Invariant Feature Learning with Auto-Augmentation for Camera-Robust Zero-Watermarking</h1>
+      <p class="paper-meta"><span class="paper-meta-label">Authors:</span> Abdullah Tanvir, Agnibh Dasgupta, Xin Zhong</p>
+      <p class="paper-meta"><span class="paper-meta-label">Venue:</span> IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</p>
+      <p class="paper-meta"><span class="paper-meta-label">Year:</span> 2026 (in press)</p>
+
+      <figure class="paper-detail-figure">
+        <img src="../img/TIACam.png" alt="TIACam: Text-Anchored Invariant Feature Learning with Auto-Augmentation for Camera-Robust Zero-Watermarking">
+      </figure>
+
+      <p class="paper-detail-actions">
+        <a class="btn" href="https://arxiv.org/abs/2602.18863" target="_blank" rel="noopener">View Paper</a>
+      </p>
+
+      <h2 class="paper-detail-heading">Abstract</h2>
+      <div class="paper-detail-abstract">
+        <p>Camera recapture introduces complex optical degradations, such as perspective warping, illumination shifts, and Moiré interference, that remain challenging for deep watermarking systems. We present TIACam, a text-anchored invariant feature learning framework with auto-augmentation for camera-robust zero-watermarking. The method integrates three key innovations: (1) a learnable auto-augmentor that discovers camera-like distortions through differentiable geometric, photometric, and Moiré operators; (2) a text-anchored invariant feature learner that enforces semantic consistency via cross-modal adversarial alignment between image and text; and (3) a zero-watermarking head that binds binary messages in the invariant feature space without modifying image pixels. This unified formulation jointly optimizes invariance, semantic alignment, and watermark recoverability. Extensive experiments on both synthetic and real-world camera captures demonstrate that TIACam achieves state-of-the-art feature stability and watermark extraction accuracy, establishing a principled bridge between multimodal invariance learning and physically robust zero-watermarking.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt=""></a>
+        <a class="footer-btn" href="https://github.com/cent664" target="_blank" rel="noopener" aria-label="GitHub"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt=""></a>
+        <a class="footer-btn" href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt=""></a>
+        <a class="footer-btn" href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt=""></a>
+      </div>
+      <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>

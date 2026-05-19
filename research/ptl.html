@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perspective Transformation Layer — Agnibh Dasgupta</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="header-name" href="../index.html">Agnibh Dasgupta</a>
+      <nav aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../selected-research.html" aria-current="page">Selected Research</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section paper-detail">
+      <a class="back-link" href="../selected-research.html">← Back to Selected Research</a>
+      <h1 class="paper-detail-title">Perspective Transformation Layer</h1>
+      <p class="paper-meta"><span class="paper-meta-label">Authors:</span> Nishan Khatri, Agnibh Dasgupta, Yue Shen, Xin Zhong, Frank Y. Shih</p>
+      <p class="paper-meta"><span class="paper-meta-label">Venue:</span> International Conference on Computational Science and Computational Intelligence (CSCI)</p>
+      <p class="paper-meta"><span class="paper-meta-label">Year:</span> 2022</p>
+
+      <figure class="paper-detail-figure">
+        <img src="../img/PTL.png" alt="Perspective Transformation Layer">
+      </figure>
+
+      <p class="paper-detail-actions">
+        <a class="btn" href="https://ieeexplore.ieee.org/document/10216469" target="_blank" rel="noopener">View Paper</a>
+        <a class="btn btn-outline" href="https://github.com/kcnishan/Perspective_Transformation_Layer" target="_blank" rel="noopener">Code</a>
+      </p>
+
+      <h2 class="paper-detail-heading">Abstract</h2>
+      <div class="paper-detail-abstract">
+        <p>Incorporating geometric transformations that reflect the relative position changes between an observer and an object into computer vision and deep learning models has attracted much attention in recent years. However, the existing proposals mainly focus on the affine transformation that is insufficient to reflect such geometric position changes. Furthermore, current solutions often apply a neural network module to learn a single transformation matrix, which not only ignores the importance of multi-view analysis but also includes extra training parameters from the module apart from the transformation matrix parameters that increase the model complexity. In this paper, a perspective transformation layer is proposed in the context of deep learning. The proposed layer can learn homography, therefore reflecting the geometric positions between observers and objects. In addition, by directly training its transformation matrices, a single proposed layer can learn an adjustable number of multiple viewpoints without considering module parameters. The experiments and evaluations confirm the superiority of the proposed layer.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt=""></a>
+        <a class="footer-btn" href="https://github.com/cent664" target="_blank" rel="noopener" aria-label="GitHub"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt=""></a>
+        <a class="footer-btn" href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt=""></a>
+        <a class="footer-btn" href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt=""></a>
+      </div>
+      <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>

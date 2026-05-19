@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Watermarking Language Models — Agnibh Dasgupta</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="header-name" href="../index.html">Agnibh Dasgupta</a>
+      <nav aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../selected-research.html" aria-current="page">Selected Research</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section paper-detail">
+      <a class="back-link" href="../selected-research.html">← Back to Selected Research</a>
+      <h1 class="paper-detail-title">Watermarking Language Models through Language Models</h1>
+      <p class="paper-meta"><span class="paper-meta-label">Authors:</span> Agnibh Dasgupta, Abdullah Tanvir, Xin Zhong</p>
+      <p class="paper-meta"><span class="paper-meta-label">Venue:</span> IEEE Transactions on Artificial Intelligence</p>
+      <p class="paper-meta"><span class="paper-meta-label">Year:</span> 2025</p>
+
+      <figure class="paper-detail-figure">
+        <img src="../img/LLMWM.JPG" alt="Watermarking Language Models through Language Models">
+      </figure>
+
+      <p class="paper-detail-actions">
+        <a class="btn" href="https://ieeexplore.ieee.org/document/11146861" target="_blank" rel="noopener">View Paper</a>
+        <a class="btn btn-outline" href="https://github.com/cent664/LLMWM" target="_blank" rel="noopener">Code</a>
+      </p>
+
+      <h2 class="paper-detail-heading">Abstract</h2>
+      <div class="paper-detail-abstract">
+        <p>Watermarking the outputs of large language models (LLMs) is critical for provenance tracing, content regulation, and model accountability. Existing approaches often rely on access to model internals or are constrained by static rules and token-level perturbations. Moreover, the idea of steering generative behavior via prompt-based instruction control remains largely underexplored. 
+        We introduce a prompt-guided watermarking framework that operates entirely at the input level and requires no access to model parameters or decoding logits. The framework comprises three cooperating components: a Prompting LM that synthesizes watermarking instructions from user prompts, a Marking LM that generates watermarked outputs conditioned on these instructions, and a Detecting LM trained to classify whether a response carries an embedded watermark. This modular design enables dynamic watermarking that adapts to individual prompts while remaining compatible with diverse LLM architectures, including both proprietary and open-weight models. We evaluate the framework over 25 combinations of Prompting and Marking LMs, such as GPT-4o, Mistral, LLaMA3, and DeepSeek. Experimental results show that watermark signals generalize across architectures and remain robust under fine-tuning, model distillation, and prompt-based adversarial attacks, demonstrating the effectiveness and robustness of the proposed approach.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt=""></a>
+        <a class="footer-btn" href="https://github.com/cent664" target="_blank" rel="noopener" aria-label="GitHub"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt=""></a>
+        <a class="footer-btn" href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt=""></a>
+        <a class="footer-btn" href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt=""></a>
+      </div>
+      <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
