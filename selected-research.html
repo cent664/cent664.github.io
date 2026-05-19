@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selected Research — Agnibh Dasgupta</title>
+  <meta name="description" content="Selected research by Agnibh Dasgupta on representation learning, watermarking, and LLM robustness." />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="header-name" href="index.html">Agnibh Dasgupta</a>
+
+      <nav aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="selected-research.html" aria-current="page">Selected Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h2>Selected Research</h2>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <img src="img/LLMID.png" alt="Invariant Features in Language Models: Geometric Characterization and Model Attribution" style="width:100%; border-radius:12px; border:1px solid var(--border);">
+          <div style="width:100%;">
+            <h3>Invariant Features in Language Models: Geometric Characterization and Model Attribution</h3>
+            <p class="venue">Under review</p>
+            <p>We propose a local geometric framework for identifying invariant semantic subspaces in transformer-based language models. Using a contrastive generalized eigenvalue decomposition over semantic-preserving and semantic-changing perturbations, we localize layers where semantic meaning concentrates and validate these representations causally through hidden-state interventions.
+              Invariant representations are further applied to zero-shot model attribution, achieving over 92% accuracy across base, fine-tuned, and distilled variants of 9 open-source LLMs spanning diverse architectures and parameter scales.</p>
+            <p><a href="https://arxiv.org/abs/2605.06458" aria-label="paper pdf">Paper</a> · <a href="https://github.com/cent664/LLMID" target="_blank" rel="noopener">Code</a></p>
+          </div>
+        </article>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <img src="img/TIACam.png" alt="TIACam: Text-Anchored Invariant Feature Learning with Auto-Augmentation for Camera-Robust Zero-Watermarking" style="width:100%; border-radius:12px; border:1px solid var(--border);">
+          <div style="width:100%;">
+            <h3>TIACam: Text-Anchored Invariant Feature Learning with Auto-Augmentation for Camera-Robust Zero-Watermarking</h3>
+            <p class="venue">IEEE/CVF Computer Vision and Pattern Recognition Conference (in press)</p>
+            <p>TIACam is a text-anchored invariant feature learning framework for camera-robust zero-watermarking that embeds messages in a distortion-invariant feature space. Using a learnable auto-augmentor and cross-modal adversarial training, it achieves state-of-the-art watermark recovery under synthetic and real camera captures.</p>
+            <p><a href="https://arxiv.org/abs/2602.18863" aria-label="paper pdf">Paper</a></p>
+          </div>
+        </article>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <img src="img/LLMWM.JPG" alt="Watermarking Language Models through Language Models" style="width:100%; border-radius:12px; border:1px solid var(--border);">
+          <div style="width:100%;">
+            <h3>Watermarking Language Models through Language Models</h3>
+            <p class="venue">IEEE Transactions on Artificial Intelligence 2025</p>
+            <p>Prompt-based LLM watermarking framework that embeds detectable signals in model responses without modifying weights or data. Evaluated watermark generation and detection using instruction-tuned LLMs. The figure above is an overview of our prompting strategy.</p>
+            <p><a href="https://ieeexplore.ieee.org/document/11146861" aria-label="paper pdf">Paper</a> · <a href="https://github.com/cent664/LLMWM" target="_blank" rel="noopener">Code</a></p>
+          </div>
+        </article>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <img src="img/SSRIW.png" alt="Robust Image Watermarking via Cross-Attention & Invariant Domain Learning" style="width:100%; border-radius:12px; border:1px solid var(--border);">
+          <div style="width:100%;">
+            <h3>Robust Image Watermarking via Cross-Attention &amp; Invariant Domain Learning</h3>
+            <p class="venue">International Conf. on Computational Science & Computational Intelligence 2023</p>
+            <p>Watermark embedding and extraction method resilient to geometric and photometric attacks. Utilizes ViT-based cross-attention to align invariant domain features for robust watermark decoding. The figure above shows an overview of our proposed franework.</p>
+            <p><a href="https://ieeexplore.ieee.org/document/10590390" aria-label="paper pdf">Paper</a> · <a href="https://github.com/cent664/SSRIW" target="_blank" rel="noopener">Code</a></p>
+          </div>
+        </article>
+
+        <article class="card" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+          <img src="img/PTL.png" alt="Perspective Transformation Layer" style="width:100%; border-radius:12px; border:1px solid var(--border);">
+          <div style="width:100%;">
+            <h3>Perspective Transformation Layer</h3>
+            <p class="venue">International Conf. on Computational Science &amp; Computational Intelligence 2022</p>
+            <p>A lightweight differentiable layer that learns perspective transformations within the network forward pass, improving robustness to viewpoint changes without hand-crafted augmentation pipelines. Evaluated on SVHN, Imagenette, and MNIST, outperforming prior state-of-the-art with minimal added computation.</p>
+            <p><a href="https://ieeexplore.ieee.org/document/10216469" aria-label="paper pdf">Paper</a> · <a href="https://github.com/kcnishan/Perspective_Transformation_Layer" target="_blank" rel="noopener">Code</a></p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt="">
+        </a>
+        <a class="footer-btn" href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="">
+        </a>
+        <a class="footer-btn" href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt="">
+        </a>
+      </div>
+      <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>

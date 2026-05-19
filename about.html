@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Agnibh Dasgupta</title>
+  <meta name="description" content="About Agnibh Dasgupta, AI researcher focusing on representation learning, robust watermarking, and LLM robustness." />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="header-name" href="index.html">Agnibh Dasgupta</a>
+
+      <nav aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="selected-research.html">Selected Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero hero--home">
+      <div class="hero-centered">
+        <img class="headshot" src="img/headshot.JPG" alt="Agnibh Dasgupta">
+        <h2 class="about-heading">About Me</h2>
+
+        <div class="about-text">
+          <p>
+            I am an AI researcher with a Ph.D. in Computing &amp; Information Science from the
+            University of Nebraska Omaha. My research investigates how neural networks encode
+            semantic structure that remains stable under perturbation. I study how these invariant
+            representations emerge, how they can be systematically learned or identified, and how
+            they can be operationalized for robustness-critical applications.
+          </p>
+          <p>
+            My work has focused on robust watermarking and model provenance as downstream
+            applications and as quantitative probes of representational stability. On the vision
+            side, I have developed frameworks for semantically grounded invariant feature learning
+            and camera-robust zero-watermarking. On the language side, I have designed black-box LLM
+            watermarking systems, and investigated the geometric structure of invariant subspaces in
+            pretrained LLMs for model attribution.
+          </p>
+          <p>
+            Outside of research, I like playing video games and badminton. I also occasionally draw
+            and make YouTube videos when I feel inspired. I love dogs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt="">
+        </a>
+        <a class="footer-btn" href="https://www.linkedin.com/in/cent664/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="">
+        </a>
+        <a class="footer-btn" href="https://scholar.google.com/citations?user=LlBDprIAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt="">
+        </a>
+      </div>
+      <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
