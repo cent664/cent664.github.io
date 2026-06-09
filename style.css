@@ -669,12 +669,7 @@ ul { padding-left: 20px; }
   line-height: 1.6;
 }
 
-.project-showcase-link {
-  font-weight: 600;
+.project-showcase-links {
+  margin: 0;
   font-size: 17px;
-  text-decoration: none;
-}
-
-.project-showcase-link:hover {
-  text-decoration: underline;
 }
