@@ -124,12 +124,17 @@ header {
   display: none;
 }
 
-html[data-theme="dark"] .theme-toggle .icon-sun {
+html[data-theme="dark"] .theme-toggle .icon-sun,
+html:not([data-theme="light"]) .theme-toggle .icon-sun {
   display: block;
 }
 
 html[data-theme="light"] .theme-toggle .icon-moon {
   display: block;
+}
+
+html[data-theme="light"] .theme-toggle .icon-sun {
+  display: none;
 }
 
 nav a {
@@ -290,10 +295,10 @@ nav a[aria-current="page"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: var(--content-width);
+  max-width: 300px;
   width: 100%;
-  margin: 0 auto 28px;
-  padding: 8px 0 4px;
+  margin: 0 auto 24px;
+  padding: 0;
   background: transparent;
   border: none;
   border-radius: 0;
@@ -302,15 +307,24 @@ nav a[aria-current="page"] {
 }
 
 .visitor-map .mmvst_outer,
-.visitor-map .mmvst_globe {
+.visitor-map .mmvst_globe,
+.visitor-map #mapmyvisitors-widget,
+.visitor-map .mapmyvisitors-map-control,
+.visitor-map .mapmyvisitors-map-container,
+.visitor-map .mapmyvisitors-map {
+  max-width: 100% !important;
+  width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  box-sizing: border-box !important;
 }
 
 .visitor-map iframe,
 .visitor-map img,
-.visitor-map canvas {
+.visitor-map canvas,
+.visitor-map svg {
   max-width: 100%;
+  height: auto;
   display: block;
   margin: 0 auto;
 }

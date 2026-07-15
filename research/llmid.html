@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invariant Features in Language Models — Agnibh Dasgupta</title>
-  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
-  <link rel="stylesheet" href="../style.css">
+  <script>(function(){function preferred(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')return t;}catch(e){}try{return window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}catch(e2){return 'dark';}}function apply(theme){if(theme!=='light'&&theme!=='dark')theme='dark';document.documentElement.setAttribute('data-theme',theme);var b=document.getElementById('theme-toggle');if(b)b.setAttribute('aria-label',theme==='light'?'Switch to dark mode':'Switch to light mode');}window.__applyTheme=apply;window.__toggleTheme=function(){var next=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';try{localStorage.setItem('theme',next);}catch(e){}apply(next);};apply(preferred());})();</script>
+  <link rel="stylesheet" href="../style.css?v=20260715">
 </head>
 <body>
   <div class="wrap">
@@ -20,7 +20,7 @@
         <a href="../projects.html">Projects</a>
         <a href="../contact.html">Contact</a>
       </nav>
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme">
+        <button type="button" class="theme-toggle" id="theme-toggle" onclick="window.__toggleTheme&&window.__toggleTheme()" aria-label="Toggle color theme">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         </button>      </div>
@@ -58,7 +58,7 @@
       <p class="footer-copy">© <span id="y"></span> Agnibh Dasgupta</p>
     </footer>
   </div>
-  <script src="../theme.js"></script>
+  <script src="../theme.js?v=20260715"></script>
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
 </html>

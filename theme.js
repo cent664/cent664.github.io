@@ -6,10 +6,15 @@
       var saved = localStorage.getItem(STORAGE_KEY);
       if (saved === 'light' || saved === 'dark') return saved;
     } catch (e) {}
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    try {
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    } catch (e2) {
+      return 'dark';
+    }
   }
 
   function applyTheme(theme) {
+    if (theme !== 'light' && theme !== 'dark') theme = 'dark';
     document.documentElement.setAttribute('data-theme', theme);
     var btn = document.getElementById('theme-toggle');
     if (btn) {
@@ -20,22 +25,17 @@
     }
   }
 
-  function init() {
-    applyTheme(preferredTheme());
-    var btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      try {
-        localStorage.setItem(STORAGE_KEY, next);
-      } catch (e) {}
-      applyTheme(next);
-    });
+  function toggleTheme() {
+    var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch (e) {}
+    applyTheme(next);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  // Head bootstrap defines these early; refresh them here. Button uses onclick only
+  // (no second click listener) so the toggle does not fire twice.
+  window.__applyTheme = applyTheme;
+  window.__toggleTheme = toggleTheme;
+  applyTheme(preferredTheme());
 })();
