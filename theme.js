@@ -25,7 +25,12 @@
     }
   }
 
+  function enableTransitions() {
+    document.documentElement.classList.add('theme-transitions');
+  }
+
   function toggleTheme() {
+    enableTransitions();
     var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
     try {
       localStorage.setItem(STORAGE_KEY, next);
@@ -38,4 +43,9 @@
   window.__applyTheme = applyTheme;
   window.__toggleTheme = toggleTheme;
   applyTheme(preferredTheme());
+
+  // Allow smooth swaps after first paint (never animate the initial theme apply).
+  window.addEventListener('load', function () {
+    window.requestAnimationFrame(enableTransitions);
+  });
 })();

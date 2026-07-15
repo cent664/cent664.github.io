@@ -43,6 +43,25 @@ html, body {
   font-size: 18px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-transitions,
+  html.theme-transitions body {
+    transition: background-color 0.45s ease, color 0.45s ease;
+  }
+
+  html.theme-transitions body *:not(script):not(style) {
+    transition:
+      background-color 0.45s ease,
+      color 0.45s ease,
+      border-color 0.45s ease,
+      box-shadow 0.45s ease,
+      filter 0.45s ease,
+      fill 0.45s ease,
+      stroke 0.45s ease,
+      transform 0.45s ease;
+  }
+}
+
 body {
   min-height: 100vh;
   display: flex;
