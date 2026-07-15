@@ -314,15 +314,16 @@ nav a[aria-current="page"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 300px;
+  max-width: 500px;
   width: 100%;
-  margin: 0 auto 24px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
+  margin: 0 auto 28px;
+  padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px var(--shadow);
   min-height: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .visitor-map .mmvst_outer,
