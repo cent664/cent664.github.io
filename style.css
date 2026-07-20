@@ -737,23 +737,6 @@ ul { padding-left: 20px; }
   .contact-grid {
     grid-template-columns: 1fr;
   }
-
-  .visitor-map {
-    max-width: 100%;
-    padding: 6px;
-    margin-bottom: 20px;
-  }
-
-  .visitor-map .mmvst_outer,
-  .visitor-map .mmvst_globe,
-  .visitor-map #mapmyvisitors-widget,
-  .visitor-map .mapmyvisitors-map-control,
-  .visitor-map .mapmyvisitors-map-container,
-  .visitor-map .mapmyvisitors-map {
-    max-width: 100% !important;
-    width: 100% !important;
-    height: auto !important;
-  }
 }
 
 .research-list {
