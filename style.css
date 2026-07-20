@@ -477,6 +477,12 @@ nav a[aria-current="page"] {
   font-size: 18px;
   line-height: 1.65;
   color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+.pubs a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .pubs li::marker {
@@ -666,6 +672,10 @@ ul { padding-left: 20px; }
 
 @media (max-width: 860px) {
   header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--bg);
     flex-wrap: nowrap;
     align-items: center;
   }
@@ -690,7 +700,7 @@ ul { padding-left: 20px; }
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
-    z-index: 100;
+    z-index: 201;
     min-width: 220px;
     padding: 8px;
     background: var(--card);
