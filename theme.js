@@ -55,7 +55,7 @@
     var nav = document.getElementById('primary-nav');
     if (!header || !toggle || !nav) return;
 
-    var mq = window.matchMedia('(max-width: 860px)');
+    var mq = window.matchMedia('(max-width: 860px), (hover: none) and (pointer: coarse)');
 
     function closeNav() {
       header.classList.remove('nav-open');
