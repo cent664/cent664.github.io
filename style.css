@@ -415,19 +415,6 @@ nav a[aria-current="page"] {
   overflow: hidden;
 }
 
-.visitor-map .mmvst_outer,
-.visitor-map .mmvst_globe,
-.visitor-map #mapmyvisitors-widget,
-.visitor-map .mapmyvisitors-map-control,
-.visitor-map .mapmyvisitors-map-container,
-.visitor-map .mapmyvisitors-map {
-  max-width: 100% !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-
 .visitor-map iframe,
 .visitor-map img,
 .visitor-map canvas,
