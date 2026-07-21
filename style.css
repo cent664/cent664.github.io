@@ -403,7 +403,7 @@ nav a[aria-current="page"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 500px;
+  max-width: 340px;
   width: 100%;
   margin: 0 auto 28px;
   padding: 10px;
