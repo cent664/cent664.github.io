@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Perspective Transformation Layer — Agnibh Dasgupta</title>
   <script>(function(){function preferred(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'||t==='wallpaper')return t;}catch(e){}return 'wallpaper';}function apply(theme){if(theme!=='light'&&theme!=='dark'&&theme!=='wallpaper')theme='dark';document.documentElement.setAttribute('data-theme',theme);var b=document.getElementById('theme-toggle');if(b)b.setAttribute('aria-label',theme==='light'?'Switch to wallpaper mode':theme==='wallpaper'?'Switch to dark mode':'Switch to light mode');}window.__applyTheme=apply;window.__toggleTheme=function(){document.documentElement.classList.add('theme-transitions');var cur=document.documentElement.getAttribute('data-theme');var next=cur==='dark'?'light':cur==='light'?'wallpaper':'dark';try{localStorage.setItem('theme',next);}catch(e){}apply(next);};apply(preferred());})();</script>
-  <link rel="stylesheet" href="../style.css?v=20260805g">
+  <link rel="stylesheet" href="../style.css?v=20260805h">
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -13,6 +13,7 @@
   <link rel="manifest" href="/site.webmanifest" />
 </head>
 <body>
+  <div class="site-scroll">
   <div class="wrap">
     <header>
       <a class="header-name" href="../index.html">Agnibh Dasgupta</a>
@@ -80,7 +81,8 @@
       <p class="footer-copy">&copy; <span id="y"></span> Agnibh Dasgupta &middot; Last updated: August 5, 2026</p>
     </footer>
   </div>
-  <script src="../theme.js?v=20260805g"></script>
+  </div>
+  <script src="../theme.js?v=20260805h"></script>
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
 </html>
