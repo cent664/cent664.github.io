@@ -4,19 +4,19 @@
   var WALLPAPER_FILE_KEY = 'wallpaper-file';
   var WALLPAPER_PAUSED_KEY = 'wallpaper-paused';
   var WALLPAPER_INTERVAL_MS = 12000;
-  var WALLPAPER_FADE_MS = 900;
+  var WALLPAPER_FADE_MS = 2500;
   var EMAIL_COPY_TEXT = 'adg002 at gmail dot com';
   var DEFAULT_WALLPAPERS = [
-    'PXL_20260319_154558385.jpg',
-    'PXL_20260319_155321448.jpg',
-    'PXL_20260409_002746478.jpg',
-    'PXL_20260604_224807912.jpg',
-    'PXL_20260719_023300571.jpg',
-    'PXL_20260719_023859037.jpg',
-    'PXL_20260719_032554055.jpg',
-    'PXL_20260731_222044010.jpg',
-    'IMG_2796.JPG',
-    'IMG_2802.JPG'
+    'IMG_2796.webp',
+    'IMG_2802.webp',
+    'PXL_20260319_154558385.webp',
+    'PXL_20260319_155321448.webp',
+    'PXL_20260409_002746478.webp',
+    'PXL_20260604_224807912.webp',
+    'PXL_20260719_023300571.webp',
+    'PXL_20260719_023859037.webp',
+    'PXL_20260719_032554055.webp',
+    'PXL_20260731_222044010.webp'
   ];
 
   var wallpaperTimer = null;
@@ -108,25 +108,9 @@
       document.body.insertBefore(stage, document.body.firstChild);
     }
 
-    if (!document.querySelector('.wallpaper-controls')) {
-      var footer = document.querySelector('footer');
-      if (!footer || !footer.parentNode) return;
-      var controls = document.createElement('div');
-      controls.className = 'wallpaper-controls';
-      controls.hidden = true;
-      controls.innerHTML =
-        '<button type="button" class="wallpaper-control-btn" data-wallpaper-action="prev" aria-label="Previous wallpaper">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>' +
-        '</button>' +
-        '<button type="button" class="wallpaper-control-btn" data-wallpaper-action="pause" aria-label="Pause wallpaper slideshow">' +
-          '<svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>' +
-          '<svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="8,5 19,12 8,19"></polygon></svg>' +
-        '</button>' +
-        '<button type="button" class="wallpaper-control-btn" data-wallpaper-action="next" aria-label="Next wallpaper">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>' +
-        '</button>';
-      footer.parentNode.insertBefore(controls, footer);
-
+    var controls = document.querySelector('.wallpaper-controls');
+    if (controls && !controls.dataset.bound) {
+      controls.dataset.bound = '1';
       controls.addEventListener('click', function (e) {
         var btn = e.target.closest('[data-wallpaper-action]');
         if (!btn) return;

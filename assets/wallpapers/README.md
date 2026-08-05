@@ -1,17 +1,22 @@
 # Wallpapers
 
-Drop image files here (`.jpg`, `.jpeg`, `.png`, or `.webp`), then list their filenames in `manifest.json`:
+Drop full-size photos here (`.jpg`, `.jpeg`, `.png`, or `.webp`), then optimize before publishing:
 
-```json
-[
-  "sunset.jpg",
-  "lab.png",
-  "denver.webp"
-]
+```bash
+python optimize_wallpapers.py
 ```
 
-The site picks a random image when wallpaper mode is turned on, then cycles through the list in order.
+That script:
 
-Tips for best results:
-- Prefer landscape photos around 1920×1080 or larger
-- Varied lighting is fine; the site applies a light dark scrim so text stays readable
+- resizes the longest side to ~1920px
+- converts to WebP
+- deletes the full-size sources after a successful write
+- rewrites `manifest.json`
+
+Only the optimized `.webp` files should be committed/pushed. Keep originals out of git.
+
+`theme.js` embeds the same list as `DEFAULT_WALLPAPERS` (fallback if the manifest fails to load)—update that list when the set changes, or re-run the optimizer and sync both.
+
+Tips:
+- Landscape or portrait both work; a light scrim keeps text readable
+- Prefer varied lighting across the set

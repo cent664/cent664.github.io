@@ -1,0 +1,5 @@
+# Full-size wallpaper sources — only optimized .webp should be committed
+assets/wallpapers/*.[jJ][pP][gG]
+assets/wallpapers/*.[jJ][pP][eE][gG]
+assets/wallpapers/*.[pP][nN][gG]
+assets/wallpapers/originals/

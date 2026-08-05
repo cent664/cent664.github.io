@@ -83,7 +83,7 @@ html[data-theme="wallpaper"] body {
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 0.9s ease;
+  transition: opacity 2.5s ease;
 }
 
 .wallpaper-layer.is-visible {
@@ -565,21 +565,12 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 8px auto 12px;
   position: relative;
   z-index: 5;
 }
 
 .wallpaper-controls[hidden] {
   display: none !important;
-}
-
-.wallpaper-controls:not([hidden]) {
-  margin-top: auto;
-}
-
-.wallpaper-controls:not([hidden]) + footer {
-  margin-top: 0;
 }
 
 .wallpaper-control-btn {
