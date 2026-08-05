@@ -28,7 +28,11 @@
   var wallpaperPaused = false;
   var wallpaperManifestLoaded = false;
   var activeLayer = 'a';
-  var fadeLocked = false;
+  var showRequestId = 0;
+  var fadeTimeout = null;
+  var queuedNextIndex = -1;
+  var imageCache = Object.create(null);
+  var allPreloadStarted = false;
   var toastTimer = null;
 
   function preferredTheme() {
@@ -142,23 +146,69 @@
     if (stage) stage.classList.toggle('is-active', !!visible);
   }
 
-  function preloadWallpaper(filename) {
-    if (!filename) return;
-    var img = new Image();
+  function loadWallpaperImage(filename, callback) {
+    if (!filename) {
+      if (callback) callback(false);
+      return;
+    }
+
+    var cached = imageCache[filename];
+    if (cached && cached.complete && cached.naturalWidth > 0) {
+      if (callback) callback(true);
+      return;
+    }
+
+    var img = cached || new Image();
+    imageCache[filename] = img;
+
+    var settled = false;
+    function done(ok) {
+      if (settled) return;
+      settled = true;
+      if (callback) callback(ok);
+    }
+
+    img.onload = function () { done(true); };
+    img.onerror = function () { done(false); };
+
+    if (img.complete && img.naturalWidth > 0) {
+      done(true);
+      return;
+    }
+
+    // Re-assigning src is fine if already loading the same URL.
     img.src = wallpaperUrl(filename);
   }
 
-  function preloadNeighbors() {
-    if (wallpaperList.length < 2) return;
-    if (wallpaperHistory.length) {
-      preloadWallpaper(wallpaperHistory[wallpaperHistory.length - 1]);
+  function pickRandomIndex(exclude) {
+    if (wallpaperList.length <= 1) return 0;
+    var next = exclude;
+    while (next === exclude) {
+      next = Math.floor(Math.random() * wallpaperList.length);
     }
-    // Warm a couple of random options for smoother forward transitions.
-    var tries = 0;
-    while (tries < 3) {
-      var idx = Math.floor(Math.random() * wallpaperList.length);
-      tries += 1;
-      if (idx !== wallpaperIndex) preloadWallpaper(wallpaperList[idx]);
+    return next;
+  }
+
+  function ensureQueuedNext() {
+    if (wallpaperList.length < 2) {
+      queuedNextIndex = -1;
+      return;
+    }
+    if (queuedNextIndex < 0 || queuedNextIndex === wallpaperIndex) {
+      queuedNextIndex = pickRandomIndex(wallpaperIndex);
+    }
+    loadWallpaperImage(wallpaperList[queuedNextIndex]);
+    if (wallpaperHistory.length) {
+      loadWallpaperImage(wallpaperHistory[wallpaperHistory.length - 1]);
+    }
+  }
+
+  function preloadAllWallpapers() {
+    if (allPreloadStarted) return;
+    allPreloadStarted = true;
+    var i;
+    for (i = 0; i < wallpaperList.length; i += 1) {
+      loadWallpaperImage(wallpaperList[i]);
     }
   }
 
@@ -183,33 +233,50 @@
     var stage = document.querySelector('.wallpaper-stage');
     if (!stage || !filename) return;
 
-    var url = 'url("' + wallpaperUrl(filename) + '")';
-    var nextId = activeLayer === 'a' ? 'b' : 'a';
-    var currentEl = stage.querySelector('[data-layer="' + activeLayer + '"]');
-    var nextEl = stage.querySelector('[data-layer="' + nextId + '"]');
-    if (!currentEl || !nextEl) return;
-
-    nextEl.style.backgroundImage = url;
-
-    if (!animate || reduceMotion() || !currentEl.classList.contains('is-visible')) {
-      nextEl.classList.add('is-visible');
-      currentEl.classList.remove('is-visible');
-      currentEl.style.backgroundImage = '';
-      activeLayer = nextId;
-      preloadNeighbors();
-      return;
+    var requestId = (showRequestId += 1);
+    if (fadeTimeout) {
+      clearTimeout(fadeTimeout);
+      fadeTimeout = null;
     }
 
-    fadeLocked = true;
-    nextEl.classList.add('is-visible');
-    currentEl.classList.remove('is-visible');
-    window.setTimeout(function () {
-      currentEl.style.backgroundImage = '';
-      fadeLocked = false;
-    }, WALLPAPER_FADE_MS);
+    loadWallpaperImage(filename, function () {
+      if (requestId !== showRequestId) return;
+      if (document.documentElement.getAttribute('data-theme') !== 'wallpaper') return;
 
-    activeLayer = nextId;
-    preloadNeighbors();
+      var url = 'url("' + wallpaperUrl(filename) + '")';
+      var nextId = activeLayer === 'a' ? 'b' : 'a';
+      var currentEl = stage.querySelector('[data-layer="' + activeLayer + '"]');
+      var nextEl = stage.querySelector('[data-layer="' + nextId + '"]');
+      if (!currentEl || !nextEl) return;
+
+      nextEl.style.backgroundImage = url;
+
+      if (!animate || reduceMotion() || !currentEl.classList.contains('is-visible')) {
+        nextEl.classList.add('is-visible');
+        currentEl.classList.remove('is-visible');
+        currentEl.style.backgroundImage = '';
+        activeLayer = nextId;
+        ensureQueuedNext();
+        preloadAllWallpapers();
+        return;
+      }
+
+      nextEl.classList.add('is-visible');
+      currentEl.classList.remove('is-visible');
+      activeLayer = nextId;
+
+      var outgoing = currentEl;
+      fadeTimeout = window.setTimeout(function () {
+        fadeTimeout = null;
+        if (requestId !== showRequestId) return;
+        if (!outgoing.classList.contains('is-visible')) {
+          outgoing.style.backgroundImage = '';
+        }
+      }, WALLPAPER_FADE_MS);
+
+      ensureQueuedNext();
+      preloadAllWallpapers();
+    });
   }
 
   function pushHistory(filename) {
@@ -229,10 +296,12 @@
     var current = wallpaperList[wallpaperIndex];
     pushHistory(current);
 
-    var nextIndex = wallpaperIndex;
-    while (nextIndex === wallpaperIndex) {
-      nextIndex = Math.floor(Math.random() * wallpaperList.length);
+    var nextIndex = queuedNextIndex;
+    if (nextIndex < 0 || nextIndex === wallpaperIndex) {
+      nextIndex = pickRandomIndex(wallpaperIndex);
     }
+    queuedNextIndex = -1;
+
     wallpaperIndex = nextIndex;
     persistWallpaperState();
     showWallpaper(wallpaperList[wallpaperIndex], animate);
@@ -246,6 +315,8 @@
       var prevFile = wallpaperHistory.pop();
       var idx = wallpaperList.indexOf(prevFile);
       if (idx >= 0 && idx !== wallpaperIndex) {
+        // Current image becomes the next forward target if they press next again.
+        queuedNextIndex = wallpaperIndex;
         wallpaperIndex = idx;
         persistWallpaperState();
         showWallpaper(wallpaperList[wallpaperIndex], animate);
