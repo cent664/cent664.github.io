@@ -60,20 +60,46 @@ html, body {
 
 html[data-theme="wallpaper"] body {
   background-color: #0b0f14;
-  background-image: var(--wallpaper-image, none);
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 
-html[data-theme="wallpaper"] body::before {
-  content: "";
+.wallpaper-stage {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
+}
+
+.wallpaper-stage.is-active {
+  display: block;
+}
+
+.wallpaper-layer {
+  position: absolute;
+  inset: 0;
+  background-color: #0b0f14;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.wallpaper-layer.is-visible {
+  opacity: 1;
+}
+
+.wallpaper-scrim {
+  position: absolute;
+  inset: 0;
   background: rgba(8, 12, 18, 0.42);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wallpaper-layer {
+    transition: none;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -150,6 +176,7 @@ html[data-theme="wallpaper"] footer {
   font-size: 22px;
   color: var(--fg);
   text-decoration: none;
+  padding-left: 0.6em;
 }
 
 .header-name:hover {
@@ -531,6 +558,71 @@ footer {
   text-align: center;
   flex-shrink: 0;
   background: transparent;
+}
+
+.wallpaper-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 8px auto 12px;
+  position: relative;
+  z-index: 5;
+}
+
+.wallpaper-controls[hidden] {
+  display: none !important;
+}
+
+.wallpaper-controls:not([hidden]) {
+  margin-top: auto;
+}
+
+.wallpaper-controls:not([hidden]) + footer {
+  margin-top: 0;
+}
+
+.wallpaper-control-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.wallpaper-control-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.wallpaper-control-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.wallpaper-control-btn .icon-play {
+  display: none;
+}
+
+.wallpaper-control-btn.is-paused .icon-pause {
+  display: none;
+}
+
+.wallpaper-control-btn.is-paused .icon-play {
+  display: block;
+}
+
+html[data-theme="wallpaper"] .wallpaper-control-btn {
+  background: var(--chrome);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .footer-links {
