@@ -47,6 +47,7 @@ html[data-theme="wallpaper"] {
 
 html {
   height: 100%;
+  overscroll-behavior: none;
 }
 
 html, body {
@@ -56,6 +57,7 @@ html, body {
   color: var(--fg);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 18px;
+  overscroll-behavior: none;
 }
 
 html[data-theme="wallpaper"] body {
@@ -65,10 +67,17 @@ html[data-theme="wallpaper"] body {
 .wallpaper-stage {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .wallpaper-stage.is-active {
@@ -77,13 +86,16 @@ html[data-theme="wallpaper"] body {
 
 .wallpaper-layer {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: #0b0f14;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 2.5s ease;
+  transition: opacity 0.9s ease;
 }
 
 .wallpaper-layer.is-visible {
@@ -92,7 +104,10 @@ html[data-theme="wallpaper"] body {
 
 .wallpaper-scrim {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(8, 12, 18, 0.42);
 }
 
@@ -565,12 +580,21 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin: 8px auto 12px;
   position: relative;
   z-index: 5;
 }
 
 .wallpaper-controls[hidden] {
   display: none !important;
+}
+
+.wallpaper-controls:not([hidden]) {
+  margin-top: auto;
+}
+
+.wallpaper-controls:not([hidden]) + footer {
+  margin-top: 0;
 }
 
 .wallpaper-control-btn {

@@ -16,7 +16,7 @@ import re
 import sys
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 MAX_SIDE = 1920
 WEBP_QUALITY = 82
@@ -46,6 +46,9 @@ def needs_reencode(path: Path, img: Image.Image) -> bool:
 def optimize_one(path: Path) -> Path | None:
     with Image.open(path) as img:
         img.load()
+        # Bake camera/editor rotation into pixels (EXIF Orientation).
+        # Without this, WebP drops the tag and phones look "un-rotated".
+        img = ImageOps.exif_transpose(img)
         if img.mode not in ("RGB", "L"):
             img = img.convert("RGB")
         elif img.mode == "L":

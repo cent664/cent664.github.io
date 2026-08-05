@@ -20,3 +20,4 @@ Only the optimized `.webp` files should be committed/pushed. Keep originals out 
 Tips:
 - Landscape or portrait both work; a light scrim keeps text readable
 - Prefer varied lighting across the set
+- If you rotate a photo in Photos/Preview, run the optimizer afterward — it bakes EXIF orientation into the WebP pixels so the rotation sticks

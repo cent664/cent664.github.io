@@ -4,11 +4,13 @@
   var WALLPAPER_FILE_KEY = 'wallpaper-file';
   var WALLPAPER_PAUSED_KEY = 'wallpaper-paused';
   var WALLPAPER_INTERVAL_MS = 12000;
-  var WALLPAPER_FADE_MS = 2500;
+  var WALLPAPER_FADE_MS = 900;
   var EMAIL_COPY_TEXT = 'adg002 at gmail dot com';
   var DEFAULT_WALLPAPERS = [
     'IMG_2796.webp',
     'IMG_2802.webp',
+    'PXL_20251213_212702761.webp',
+    'PXL_20251228_232419184.webp',
     'PXL_20260319_154558385.webp',
     'PXL_20260319_155321448.webp',
     'PXL_20260409_002746478.webp',
@@ -22,6 +24,7 @@
   var wallpaperTimer = null;
   var wallpaperList = DEFAULT_WALLPAPERS.slice();
   var wallpaperIndex = 0;
+  var wallpaperHistory = [];
   var wallpaperPaused = false;
   var wallpaperManifestLoaded = false;
   var activeLayer = 'a';
@@ -115,8 +118,8 @@
         var btn = e.target.closest('[data-wallpaper-action]');
         if (!btn) return;
         var action = btn.getAttribute('data-wallpaper-action');
-        if (action === 'prev') stepWallpaper(-1, true);
-        else if (action === 'next') stepWallpaper(1, true);
+        if (action === 'prev') goPreviousWallpaper(true);
+        else if (action === 'next') goRandomWallpaper(true);
         else if (action === 'pause') toggleWallpaperPause();
       });
     }
@@ -145,12 +148,18 @@
     img.src = wallpaperUrl(filename);
   }
 
-  function preloadAdjacent() {
+  function preloadNeighbors() {
     if (wallpaperList.length < 2) return;
-    var next = (wallpaperIndex + 1) % wallpaperList.length;
-    var prev = (wallpaperIndex - 1 + wallpaperList.length) % wallpaperList.length;
-    preloadWallpaper(wallpaperList[next]);
-    preloadWallpaper(wallpaperList[prev]);
+    if (wallpaperHistory.length) {
+      preloadWallpaper(wallpaperHistory[wallpaperHistory.length - 1]);
+    }
+    // Warm a couple of random options for smoother forward transitions.
+    var tries = 0;
+    while (tries < 3) {
+      var idx = Math.floor(Math.random() * wallpaperList.length);
+      tries += 1;
+      if (idx !== wallpaperIndex) preloadWallpaper(wallpaperList[idx]);
+    }
   }
 
   function stopWallpaperCycle() {
@@ -165,7 +174,7 @@
     if (wallpaperPaused || wallpaperList.length < 2) return;
     if (document.documentElement.getAttribute('data-theme') !== 'wallpaper') return;
     wallpaperTimer = setInterval(function () {
-      stepWallpaper(1, true);
+      goRandomWallpaper(true);
     }, WALLPAPER_INTERVAL_MS);
   }
 
@@ -187,7 +196,7 @@
       currentEl.classList.remove('is-visible');
       currentEl.style.backgroundImage = '';
       activeLayer = nextId;
-      preloadAdjacent();
+      preloadNeighbors();
       return;
     }
 
@@ -195,23 +204,58 @@
     nextEl.classList.add('is-visible');
     currentEl.classList.remove('is-visible');
     window.setTimeout(function () {
-      if (activeLayer !== nextId) {
-        // A newer transition may have started; only clear if still outgoing.
-      }
       currentEl.style.backgroundImage = '';
       fadeLocked = false;
     }, WALLPAPER_FADE_MS);
 
     activeLayer = nextId;
-    preloadAdjacent();
+    preloadNeighbors();
   }
 
-  function stepWallpaper(delta, animate) {
+  function pushHistory(filename) {
+    if (!filename) return;
+    if (wallpaperHistory.length && wallpaperHistory[wallpaperHistory.length - 1] === filename) return;
+    wallpaperHistory.push(filename);
+    if (wallpaperHistory.length > 40) wallpaperHistory.shift();
+  }
+
+  function goRandomWallpaper(animate) {
     if (!wallpaperList.length) return;
-    wallpaperIndex = (wallpaperIndex + delta + wallpaperList.length) % wallpaperList.length;
+    if (wallpaperList.length === 1) {
+      showWallpaper(wallpaperList[0], animate);
+      return;
+    }
+
+    var current = wallpaperList[wallpaperIndex];
+    pushHistory(current);
+
+    var nextIndex = wallpaperIndex;
+    while (nextIndex === wallpaperIndex) {
+      nextIndex = Math.floor(Math.random() * wallpaperList.length);
+    }
+    wallpaperIndex = nextIndex;
     persistWallpaperState();
     showWallpaper(wallpaperList[wallpaperIndex], animate);
     if (!wallpaperPaused) scheduleWallpaperCycle();
+  }
+
+  function goPreviousWallpaper(animate) {
+    if (!wallpaperList.length) return;
+
+    while (wallpaperHistory.length) {
+      var prevFile = wallpaperHistory.pop();
+      var idx = wallpaperList.indexOf(prevFile);
+      if (idx >= 0 && idx !== wallpaperIndex) {
+        wallpaperIndex = idx;
+        persistWallpaperState();
+        showWallpaper(wallpaperList[wallpaperIndex], animate);
+        if (!wallpaperPaused) scheduleWallpaperCycle();
+        return;
+      }
+    }
+
+    // No history yet — pick a different random image.
+    goRandomWallpaper(animate);
   }
 
   function toggleWallpaperPause() {
