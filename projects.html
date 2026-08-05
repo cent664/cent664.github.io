@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Agnibh Dasgupta</title>
   <meta name="description" content="Personal and hobby projects by Agnibh Dasgupta." />
-  <script>(function(){function preferred(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')return t;}catch(e){}try{return window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}catch(e2){return 'dark';}}function apply(theme){if(theme!=='light'&&theme!=='dark')theme='dark';document.documentElement.setAttribute('data-theme',theme);var b=document.getElementById('theme-toggle');if(b)b.setAttribute('aria-label',theme==='light'?'Switch to dark mode':'Switch to light mode');}window.__applyTheme=apply;window.__toggleTheme=function(){document.documentElement.classList.add('theme-transitions');var next=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';try{localStorage.setItem('theme',next);}catch(e){}apply(next);};apply(preferred());})();</script>
-  <link rel="stylesheet" href="style.css?v=20260721d">
+  <script>(function(){function preferred(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'||t==='wallpaper')return t;}catch(e){}return 'wallpaper';}function apply(theme){if(theme!=='light'&&theme!=='dark'&&theme!=='wallpaper')theme='dark';document.documentElement.setAttribute('data-theme',theme);var b=document.getElementById('theme-toggle');if(b)b.setAttribute('aria-label',theme==='light'?'Switch to wallpaper mode':theme==='wallpaper'?'Switch to dark mode':'Switch to light mode');}window.__applyTheme=apply;window.__toggleTheme=function(){document.documentElement.classList.add('theme-transitions');var cur=document.documentElement.getAttribute('data-theme');var next=cur==='dark'?'light':cur==='light'?'wallpaper':'dark';try{localStorage.setItem('theme',next);}catch(e){}apply(next);};apply(preferred());})();</script>
+  <link rel="stylesheet" href="style.css?v=20260805d">
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -35,6 +35,7 @@
         <button type="button" class="theme-toggle" id="theme-toggle" onclick="window.__toggleTheme&&window.__toggleTheme()" aria-label="Toggle color theme">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-wallpaper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="8.5" cy="10.5" r="1.5"></circle><path d="M3 16l5-5 3.5 3.5L15 11l6 5"></path></svg>
         </button>      </div>
     </header>
 
@@ -54,9 +55,6 @@
 
     <footer>
       <div class="footer-links">
-        <a class="footer-btn" href="mailto:adg002@gmail.com" aria-label="Email">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt="">
-        </a>
         <a class="footer-btn" href="https://github.com/cent664" target="_blank" rel="noopener" aria-label="GitHub">
           <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt="">
         </a>
@@ -67,10 +65,10 @@
           <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlescholar.svg" alt="">
         </a>
       </div>
-      <p class="footer-copy">&copy; <span id="y"></span> Agnibh Dasgupta &middot; Updated July 2026</p>
+      <p class="footer-copy">&copy; <span id="y"></span> Agnibh Dasgupta &middot; Last updated: August 5, 2026</p>
     </footer>
   </div>
-  <script src="theme.js?v=20260720f"></script>
+  <script src="theme.js?v=20260805d"></script>
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
 </html>
