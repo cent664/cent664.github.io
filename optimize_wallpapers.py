@@ -18,8 +18,10 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
-MAX_SIDE = 1920
-WEBP_QUALITY = 82
+# --- Constants ---------------------------------------------------------------
+
+MAX_SIDE = 1920          # longest edge after resize
+WEBP_QUALITY = 82        # lossy WebP quality (higher = larger files)
 ROOT = Path(__file__).resolve().parent
 DIR = ROOT / "assets" / "wallpapers"
 THEME_JS = ROOT / "theme.js"
@@ -28,6 +30,7 @@ SKIP_NAMES = {"manifest.json", "readme.md"}
 
 
 def is_source(path: Path) -> bool:
+    """True if this file looks like a wallpaper image we should process."""
     if not path.is_file():
         return False
     if path.name.lower() in SKIP_NAMES:
@@ -38,12 +41,14 @@ def is_source(path: Path) -> bool:
 
 
 def needs_reencode(path: Path, img: Image.Image) -> bool:
+    """Skip already-small WebPs; always re-encode other formats."""
     if path.suffix.lower() != ".webp":
         return True
     return max(img.size) > MAX_SIDE
 
 
 def optimize_one(path: Path) -> Path | None:
+    """Resize, convert to WebP, delete the source if it was a different file."""
     with Image.open(path) as img:
         img.load()
         # Bake camera/editor rotation into pixels (EXIF Orientation).
@@ -75,6 +80,7 @@ def optimize_one(path: Path) -> Path | None:
 
 
 def update_theme_js(names: list[str]) -> None:
+    """Rewrite DEFAULT_WALLPAPERS in theme.js so the JS fallback matches disk."""
     if not THEME_JS.is_file():
         print("  skip theme.js (missing)", file=sys.stderr)
         return
@@ -96,6 +102,7 @@ def update_theme_js(names: list[str]) -> None:
 
 
 def main() -> int:
+    """Optimize every source image, then refresh manifest.json + theme.js."""
     if not DIR.is_dir():
         print(f"Missing folder: {DIR}", file=sys.stderr)
         return 1

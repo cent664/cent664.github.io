@@ -1,11 +1,19 @@
+/**
+ * Site UI script: dark / light / wallpaper theme cycling, wallpaper slideshow
+ * (crossfade + preload + history), mobile nav, and contact email copy.
+ * Loaded on every page after the markup; head scripts handle first-paint theme.
+ */
 (function () {
+  /* === Constants / state ============================================== */
+
   var STORAGE_KEY = 'theme';
   var WALLPAPER_INDEX_KEY = 'wallpaper-index';
   var WALLPAPER_FILE_KEY = 'wallpaper-file';
   var WALLPAPER_PAUSED_KEY = 'wallpaper-paused';
-  var WALLPAPER_INTERVAL_MS = 12000;
-  var WALLPAPER_FADE_MS = 900;
-  var EMAIL_COPY_TEXT = 'adg002 at gmail dot com';
+  var WALLPAPER_INTERVAL_MS = 12000; // auto-advance interval in wallpaper mode
+  var WALLPAPER_FADE_MS = 900;       // must match CSS opacity transition
+  var EMAIL_COPY_TEXT = 'adg002 at gmail dot com'; // obfuscated; not a real mailto
+  // Fallback list if manifest.json fails; optimize_wallpapers.py keeps this in sync.
   var DEFAULT_WALLPAPERS = [
     'IMG_2796.webp',
     'IMG_2802.webp',
@@ -31,17 +39,20 @@
   var wallpaperTimer = null;
   var wallpaperList = DEFAULT_WALLPAPERS.slice();
   var wallpaperIndex = 0;
-  var wallpaperHistory = [];
+  var wallpaperHistory = []; // filenames for "previous" button
   var wallpaperPaused = false;
   var wallpaperManifestLoaded = false;
-  var activeLayer = 'a';
-  var showRequestId = 0;
-  var fadeTimeout = null;
-  var queuedNextIndex = -1;
+  var activeLayer = 'a';     // which of the two crossfade layers is on top
+  var showRequestId = 0;     // bumps on each show; stale loads/fades ignore themselves
+  var fadeTimeout = null;    // clears outgoing layer after fade completes
+  var queuedNextIndex = -1;  // pre-picked random target, warmed in cache
   var imageCache = Object.create(null);
   var allPreloadStarted = false;
   var toastTimer = null;
 
+  /* === Theme helpers ================================================== */
+
+  /** Saved theme, or wallpaper for first-time visitors. */
   function preferredTheme() {
     try {
       var saved = localStorage.getItem(STORAGE_KEY);
@@ -50,18 +61,21 @@
     return 'wallpaper';
   }
 
+  /** Cycle order: dark → light → wallpaper → dark. */
   function nextTheme(current) {
     if (current === 'dark') return 'light';
     if (current === 'light') return 'wallpaper';
     return 'dark';
   }
 
+  /** Accessible label for the theme toggle (describes the next mode). */
   function themeLabel(theme) {
     if (theme === 'light') return 'Switch to wallpaper mode';
     if (theme === 'wallpaper') return 'Switch to dark mode';
     return 'Switch to light mode';
   }
 
+  /** Asset path prefix: research pages live one folder deeper. */
   function assetBase() {
     return /\/research\//.test(window.location.pathname) ? '../assets/' : 'assets/';
   }
@@ -70,6 +84,7 @@
     return assetBase() + 'wallpapers/' + encodeURIComponent(filename);
   }
 
+  /** Respect OS "reduce motion" — skip crossfade animation. */
   function reduceMotion() {
     try {
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -78,6 +93,9 @@
     }
   }
 
+  /* === Wallpaper persistence ========================================== */
+
+  /** Prefer filename match so list reorders don't break the current image. */
   function readStoredIndex() {
     try {
       var file = localStorage.getItem(WALLPAPER_FILE_KEY);
@@ -100,6 +118,7 @@
     }
   }
 
+  /** Keep slideshow position/pause across page navigations. */
   function persistWallpaperState() {
     try {
       localStorage.setItem(WALLPAPER_INDEX_KEY, String(wallpaperIndex));
@@ -110,6 +129,9 @@
     } catch (e) {}
   }
 
+  /* === Wallpaper UI =================================================== */
+
+  /** Create the fixed two-layer stage once; bind prev/pause/next controls. */
   function ensureWallpaperUi() {
     if (!document.querySelector('.wallpaper-stage')) {
       var stage = document.createElement('div');
@@ -136,6 +158,7 @@
     }
   }
 
+  /** Swap pause/play icon and aria-label to match current state. */
   function updatePauseButton() {
     var btn = document.querySelector('[data-wallpaper-action="pause"]');
     if (!btn) return;
@@ -146,6 +169,7 @@
     );
   }
 
+  /** Show/hide controls and activate the stage only in wallpaper mode. */
   function setWallpaperControlsVisible(visible) {
     var controls = document.querySelector('.wallpaper-controls');
     var stage = document.querySelector('.wallpaper-stage');
@@ -153,6 +177,12 @@
     if (stage) stage.classList.toggle('is-active', !!visible);
   }
 
+  /* === Image loading / preload ======================================== */
+
+  /**
+   * Load (or reuse) an Image so we never fade in before pixels are ready.
+   * callback(true|false) runs once when load succeeds or fails.
+   */
   function loadWallpaperImage(filename, callback) {
     if (!filename) {
       if (callback) callback(false);
@@ -187,6 +217,7 @@
     img.src = wallpaperUrl(filename);
   }
 
+  /** Random index that is not `exclude` (used for next / empty history). */
   function pickRandomIndex(exclude) {
     if (wallpaperList.length <= 1) return 0;
     var next = exclude;
@@ -196,6 +227,7 @@
     return next;
   }
 
+  /** Pre-pick and warm the next forward image (and last history entry). */
   function ensureQueuedNext() {
     if (wallpaperList.length < 2) {
       queuedNextIndex = -1;
@@ -210,6 +242,7 @@
     }
   }
 
+  /** Background-warm the whole set once so later clicks stay snappy. */
   function preloadAllWallpapers() {
     if (allPreloadStarted) return;
     allPreloadStarted = true;
@@ -219,6 +252,8 @@
     }
   }
 
+  /* === Transitions / navigation ======================================= */
+
   function stopWallpaperCycle() {
     if (wallpaperTimer) {
       clearInterval(wallpaperTimer);
@@ -226,6 +261,7 @@
     }
   }
 
+  /** Restart the auto-advance timer (no-op if paused or not in wallpaper mode). */
   function scheduleWallpaperCycle() {
     stopWallpaperCycle();
     if (wallpaperPaused || wallpaperList.length < 2) return;
@@ -235,6 +271,11 @@
     }, WALLPAPER_INTERVAL_MS);
   }
 
+  /**
+   * Crossfade (or snap) to filename on the inactive layer.
+   * Invariants: wait for image load first; showRequestId drops superseded work
+   * so rapid clicks cannot clear the wrong layer's background (black flash).
+   */
   function showWallpaper(filename, animate) {
     ensureWallpaperUi();
     var stage = document.querySelector('.wallpaper-stage');
@@ -286,6 +327,7 @@
     });
   }
 
+  /** Record current image so "previous" can walk back. */
   function pushHistory(filename) {
     if (!filename) return;
     if (wallpaperHistory.length && wallpaperHistory[wallpaperHistory.length - 1] === filename) return;
@@ -293,6 +335,7 @@
     if (wallpaperHistory.length > 40) wallpaperHistory.shift();
   }
 
+  /** Right arrow / auto-advance: go to a different random (prefer queued). */
   function goRandomWallpaper(animate) {
     if (!wallpaperList.length) return;
     if (wallpaperList.length === 1) {
@@ -315,6 +358,7 @@
     if (!wallpaperPaused) scheduleWallpaperCycle();
   }
 
+  /** Left arrow: pop history; if empty, behave like random next. */
   function goPreviousWallpaper(animate) {
     if (!wallpaperList.length) return;
 
@@ -344,6 +388,7 @@
     else scheduleWallpaperCycle();
   }
 
+  /** Enter wallpaper mode: restore saved image (or pick random) and start timer. */
   function startWallpaperCycle() {
     ensureWallpaperUi();
     setWallpaperControlsVisible(true);
@@ -369,6 +414,8 @@
     setWallpaperControlsVisible(false);
   }
 
+  /* === Manifest / theme apply ========================================= */
+
   function normalizeWallpaperList(data) {
     if (!Array.isArray(data)) return [];
     return data
@@ -376,6 +423,7 @@
       .map(function (name) { return name.trim(); });
   }
 
+  /** Fetch manifest once; on failure keep DEFAULT_WALLPAPERS. */
   function loadWallpaperManifest(callback) {
     if (wallpaperManifestLoaded) {
       callback();
@@ -400,6 +448,7 @@
     req.send();
   }
 
+  /** Apply data-theme and start/stop wallpaper machinery. */
   function applyTheme(theme) {
     if (theme !== 'light' && theme !== 'dark' && theme !== 'wallpaper') theme = 'dark';
     document.documentElement.setAttribute('data-theme', theme);
@@ -413,6 +462,7 @@
     }
   }
 
+  /** Enable CSS theme transitions after first paint (avoids flash on load). */
   function enableTransitions() {
     document.documentElement.classList.add('theme-transitions');
   }
@@ -425,6 +475,8 @@
     } catch (e) {}
     applyTheme(next);
   }
+
+  /* === Email copy + toast ============================================= */
 
   function showToast(message) {
     var toast = document.getElementById('site-toast');
@@ -443,6 +495,7 @@
     }, 2200);
   }
 
+  /** Copy obfuscated email text (no mailto: in the page source). */
   function copyEmailText() {
     var text = EMAIL_COPY_TEXT;
     function onSuccess() {
@@ -461,6 +514,7 @@
     fallbackCopy(text, onSuccess, onFail);
   }
 
+  /** Older-browser clipboard fallback via a temporary textarea. */
   function fallbackCopy(text, onSuccess, onFail) {
     var area = document.createElement('textarea');
     area.value = text;
@@ -478,6 +532,7 @@
     document.body.removeChild(area);
   }
 
+  /** Wire the contact email card to copy-on-click / Enter / Space. */
   function initEmailCopy() {
     var emailBtn = document.querySelector('.contact-card--email');
     if (!emailBtn) return;
@@ -495,6 +550,7 @@
     });
   }
 
+  /* Expose for the early head bootstrap + theme toggle button onclick. */
   window.__applyTheme = applyTheme;
   window.__toggleTheme = toggleTheme;
   applyTheme(preferredTheme());
@@ -503,6 +559,9 @@
     window.requestAnimationFrame(enableTransitions);
   });
 
+  /* === Nav + boot ===================================================== */
+
+  /** Hamburger menu: open/close, outside click, Escape, and desktop resize. */
   function initNav() {
     var header = document.querySelector('header');
     var toggle = document.getElementById('nav-toggle');
@@ -544,6 +603,7 @@
     });
   }
 
+  /** After DOM is ready: stage, nav, email, and sync wallpaper chrome. */
   function bootUi() {
     ensureWallpaperUi();
     initNav();

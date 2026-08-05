@@ -1,3 +1,11 @@
+/* ==========================================================================
+   Site stylesheet — theme tokens, layout shell, wallpaper stage, page sections.
+   Theme is selected via html[data-theme="dark|light|wallpaper"].
+   ========================================================================== */
+
+/* === Theme tokens ======================================================== */
+/* Default (dark) palette; light/wallpaper override the same variables. */
+
 :root {
   --bg: #0b0f14;
   --fg: #e6eef8;
@@ -28,6 +36,7 @@ html[data-theme="light"] {
   color-scheme: light;
 }
 
+/* Transparent page bg so the fixed wallpaper stage shows through. */
 html[data-theme="wallpaper"] {
   --bg: transparent;
   --fg: #f2f6fb;
@@ -44,6 +53,10 @@ html[data-theme="wallpaper"] {
 }
 
 * { box-sizing: border-box; }
+
+/* === Page chrome / scroll shell ========================================== */
+/* html/body do not scroll; .site-scroll does — stops iOS rubber-band from
+   dragging position:fixed wallpaper with the page. */
 
 html {
   height: 100%;
@@ -64,6 +77,9 @@ html, body {
 html[data-theme="wallpaper"] body {
   background-color: #0b0f14;
 }
+
+/* === Wallpaper stage ===================================================== */
+/* Fixed full-viewport backdrop; two layers crossfade via opacity. */
 
 .wallpaper-stage {
   display: none;
@@ -95,18 +111,19 @@ html[data-theme="wallpaper"] body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #0b0f14;
+  background-color: #0b0f14; /* visible until image paints — keep dark, not empty */
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 0.9s ease;
+  transition: opacity 0.9s ease; /* keep in sync with WALLPAPER_FADE_MS in theme.js */
 }
 
 .wallpaper-layer.is-visible {
   opacity: 1;
 }
 
+/* Dark wash so text/cards stay readable over bright photos. */
 .wallpaper-scrim {
   position: absolute;
   top: 0;
@@ -122,6 +139,7 @@ html[data-theme="wallpaper"] body {
   }
 }
 
+/* Smooth theme swaps after first paint (class added by theme.js). */
 @media (prefers-reduced-motion: no-preference) {
   html.theme-transitions,
   html.theme-transitions body {
@@ -163,6 +181,7 @@ a:hover { text-decoration: underline; }
   z-index: 1;
 }
 
+/* Centered content column inside the scroll shell. */
 .wrap {
   display: flex;
   flex-direction: column;
@@ -174,6 +193,8 @@ a:hover { text-decoration: underline; }
   position: relative;
   z-index: 1;
 }
+
+/* === Header / theme toggle / nav ========================================= */
 
 header {
   display: flex;
@@ -188,6 +209,7 @@ header {
   background: transparent;
 }
 
+/* Frosted chrome so header/footer stay readable over the wallpaper. */
 html[data-theme="wallpaper"] header,
 html[data-theme="wallpaper"] footer {
   position: relative;
@@ -246,6 +268,7 @@ html[data-theme="wallpaper"] footer {
   display: block;
 }
 
+/* Show only the icon for the *current* theme. */
 .theme-toggle .icon-sun,
 .theme-toggle .icon-moon,
 .theme-toggle .icon-wallpaper {
@@ -265,7 +288,7 @@ html[data-theme="wallpaper"] .theme-toggle .icon-wallpaper {
 }
 
 .nav-toggle {
-  display: none;
+  display: none; /* shown in the mobile breakpoint below */
   align-items: center;
   justify-content: center;
   width: 40px;
@@ -310,6 +333,8 @@ nav a:hover {
 nav a[aria-current="page"] {
   color: var(--accent);
 }
+
+/* === Hero / news / cards / about ========================================= */
 
 .headshot {
   width: 180px;
@@ -512,6 +537,8 @@ nav a[aria-current="page"] {
   margin: 0 0 14px 0;
 }
 
+/* === Contact / publications ============================================== */
+
 .contact-box {
   max-width: 360px;
   margin: 0 auto;
@@ -580,6 +607,8 @@ nav a[aria-current="page"] {
   gap: 24px;
 }
 
+/* === Wallpaper controls + footer ========================================= */
+
 footer {
   display: flex;
   flex-direction: column;
@@ -595,6 +624,7 @@ footer {
   background: transparent;
 }
 
+/* Prev / pause / next — sits just above the footer in the page markup. */
 .wallpaper-controls {
   display: flex;
   justify-content: center;
@@ -610,7 +640,7 @@ footer {
 }
 
 .wallpaper-controls:not([hidden]) {
-  margin-top: auto;
+  margin-top: auto; /* push to bottom of flex column when visible */
 }
 
 .wallpaper-controls:not([hidden]) + footer {
@@ -702,6 +732,8 @@ html[data-theme="wallpaper"] .wallpaper-control-btn {
   color: var(--muted);
 }
 
+/* === Buttons / utilities ================================================= */
+
 .btn {
   display: inline-block;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -739,6 +771,7 @@ ul { padding-left: 20px; }
   width: 100%;
 }
 
+/* Contact page action cards (email copies; LinkedIn/Scholar open links). */
 .contact-card {
   display: flex;
   flex-direction: row;
@@ -834,6 +867,9 @@ ul { padding-left: 20px; }
   font-size: 15px;
 }
 
+/* === Responsive / mobile nav ============================================= */
+/* Narrow screens and coarse pointers: hamburger + dropdown nav. */
+
 @media (max-width: 860px), (hover: none) and (pointer: coarse) {
   header {
     position: sticky;
@@ -901,6 +937,8 @@ ul { padding-left: 20px; }
     display: block;
   }
 }
+
+/* === Research tiles / paper detail / projects ============================ */
 
 .research-list {
   display: flex;
