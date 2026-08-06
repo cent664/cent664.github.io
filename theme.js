@@ -12,7 +12,7 @@
   var WALLPAPER_PAUSED_KEY = 'wallpaper-paused';
   var WALLPAPER_INTERVAL_MS = 12000; // auto-advance interval in wallpaper mode
   var WALLPAPER_FADE_MS = 900;       // must match CSS opacity transition
-  var EMAIL_COPY_TEXT = 'adg002 at gmail dot com'; // obfuscated; not a real mailto
+  var EMAIL_COPY_TEXT = 'adg002 [at] gmail [dot] com'; // obfuscated; not a real mailto
   // Fallback list if manifest.json fails; optimize_wallpapers.py keeps this in sync.
   var DEFAULT_WALLPAPERS = [
     'IMG_2796.webp',
