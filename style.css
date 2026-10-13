@@ -726,6 +726,112 @@ html[data-theme="wallpaper"] .wallpaper-control-btn {
   transform: scale(1.08);
 }
 
+.footer-btn,
+.theme-toggle {
+  position: relative;
+}
+
+.footer-btn::before,
+.theme-toggle::before,
+.footer-btn::after,
+.theme-toggle::after {
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 30;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.footer-btn::after,
+.theme-toggle::after {
+  content: attr(aria-label);
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(18, 25, 34, 0.62);
+  color: #e6eef8;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+html[data-theme="light"] .footer-btn::after,
+html[data-theme="light"] .theme-toggle::after {
+  border-color: rgba(21, 32, 43, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  color: #15202b;
+}
+
+html[data-theme="wallpaper"] .footer-btn::after,
+html[data-theme="wallpaper"] .theme-toggle::after {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(8, 12, 18, 0.48);
+  color: #f2f6fb;
+}
+
+.theme-toggle::after {
+  content: "Theme";
+  top: calc(100% + 10px);
+}
+
+.footer-btn::after {
+  bottom: calc(100% + 10px);
+}
+
+.footer-btn::before,
+.theme-toggle::before {
+  content: "";
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+}
+
+.footer-btn::before {
+  bottom: calc(100% + 5px);
+  border-top-color: rgba(18, 25, 34, 0.62);
+  border-bottom: 0;
+}
+
+.theme-toggle::before {
+  top: calc(100% + 5px);
+  border-bottom-color: rgba(18, 25, 34, 0.62);
+  border-top: 0;
+}
+
+html[data-theme="light"] .footer-btn::before {
+  border-top-color: rgba(255, 255, 255, 0.62);
+}
+
+html[data-theme="light"] .theme-toggle::before {
+  border-bottom-color: rgba(255, 255, 255, 0.62);
+}
+
+html[data-theme="wallpaper"] .footer-btn::before {
+  border-top-color: rgba(8, 12, 18, 0.48);
+}
+
+html[data-theme="wallpaper"] .theme-toggle::before {
+  border-bottom-color: rgba(8, 12, 18, 0.48);
+}
+
+.footer-btn:hover::before,
+.footer-btn:focus-visible::before,
+.theme-toggle:hover::before,
+.theme-toggle:focus-visible::before,
+.footer-btn:hover::after,
+.footer-btn:focus-visible::after,
+.theme-toggle:hover::after,
+.theme-toggle:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+
 .footer-copy {
   margin: 0;
   font-size: 16px;
