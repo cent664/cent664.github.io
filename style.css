@@ -338,9 +338,9 @@ nav a[aria-current="page"] {
 
 .headshot {
   width: 180px;
-  height: 220px;
+  height: auto;
   border-radius: 12px;
-  object-fit: cover;
+  display: block;
   border: 2px solid var(--border);
   background: var(--card);
   box-shadow: 0 0 6px var(--shadow);
